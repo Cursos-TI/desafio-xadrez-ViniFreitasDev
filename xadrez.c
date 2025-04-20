@@ -1,50 +1,65 @@
 #include <stdio.h>
 
-int main() {
-    
-    printf("Movimento da torre:\n");    
-
-    int torre = 1;
-    
-    for (torre = 1; torre <= 5; torre++){
-        printf("Torre se movimenta %d casa(s) para a direita!\n", torre);
-    }
-    
-    printf("\nMovimento do bispo:\n");
-
-    int bispo = 1;
-   
-    while (bispo <= 5){
-        printf("Bispo se movimenta %d casa(s) para cima e para a direita!\n", bispo);
-        bispo++;
-    }
-
-    
-    printf("\nMovimento da rainha:\n");
-
-    int rainha = 1;
-    do
-    {
-        printf("Rainha se movimenta %d casa(s) para esquerda!\n", rainha);
-        rainha++;
-    } while (rainha <= 8);
-
-    printf("\nMovimento do cavalo:\n");
-
-    int cavalo_baixo = 2;
-    int cavalo_esquerda = 1;
-
-    int i;
-    for (i = 0; i < cavalo_baixo; i++) {
-        printf("Cavalo se movimenta %d casa(s) para baixo!\n", i + 1);
-
-        if (i == cavalo_baixo - 1) {
-            int j = 0;
-            while (j < cavalo_esquerda) {
-                printf("Cavalo se movimenta %d casa para esquerda!\n", j + 1);
-                j++;
-            }
+    void torre(int numero) {
+        if(numero > 0) {
+            torre(numero - 1);
+            printf("Torre se movimenta %d casa(s) para a direita!\n", numero);
         }
     }
+
+    void bispo(int linha, int limite) {
+        if (linha > limite) return;
+    
+        for (int coluna = 1; coluna <= limite; coluna++) {
+            if (linha == coluna) {
+                printf("Bispo se movimenta %d casa(s) para cima e %d casa(s) para a direita!\n", linha, coluna);
+            }
+        }
+    
+        bispo(linha + 1, limite);
+    }  
+
+    void rainha (int numero){
+        if (numero > 0) {
+            rainha(numero - 1);
+            printf("Rainha se movimenta %d casa(s) para esquerda!\n", numero);
+        }
+    }    
+    
+    void cavalo() {
+        for (int i = 1; i <= 2; i++) {
+            if (i == 1) {
+                printf("Cavalo se movimenta %d casa(s) para cima!\n", i);
+                continue;  
+            }
+            if (i == 2) {
+                printf("Cavalo se movimenta %d casa(s) para cima!\n", i);
+                break; 
+            }
+        }
+        for (int i = 1; i <= 1; i++) {
+            printf("Cavalo se movimenta %d casa(s) para a direita!\n", i);
+            break;  
+        }
+    }
+        
+
+
+int main() {
+    
+    int movimentoTorre = 5;
+    printf("Movimento da torre: \n");
+    torre(movimentoTorre);
+    
+    printf("\nMovimento da bispo:\n");
+    bispo(1, 5);
+    
+    int movimentoRainha = 8;
+    printf("\nMovimento da rainha:\n");
+    rainha(movimentoRainha);
+    
+    printf("\nMovimento do cavalo:\n");
+    cavalo();
+    
     return 0;
 }
